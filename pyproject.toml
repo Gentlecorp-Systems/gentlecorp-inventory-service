@@ -1,0 +1,257 @@
+# TOML (= Tom's Obvious Minimal Language) https://toml.io
+
+# Aufruf:   uv sync --all-groups
+#
+#           uv run patient
+#               uv run python -m patient
+#               uv run fastapi dev src/patient
+#               uv run uvicorn src.patient:app --ssl-certfile=src\patient\config\resources\tls\certificate.crt --ssl-keyfile=src\patient\config\resources\tls\key.pem
+#
+#           uv run pytest
+#
+#           uvx ruff check [--fix] src
+#           uvx ruff format src [--diff]
+#           uvx refurb src
+#           uvx safety check
+#           uv run mkdocs serve
+#           uvx locust -f .\.extras\locustfile.py
+
+[project]
+name = "inventory"
+version = "2025.04.01"
+description = "Inventory-Service"
+readme = "README.md"
+authors = [
+    { name = "Caleb Gyamfi", email = "caleb-script@outlook.de" },
+]
+maintainers = [
+    { name = "Caleb Gyamfi", email = "caleb-script@outlook.de" },
+]
+requires-python = ">=3.13"
+# keywords = [
+#     "Python",
+#     "FastAPI",
+#     "ASGI",
+#     "REST",
+#     "GraphQL",
+#     "TLS",
+#     "JWT",
+#     "Argon2",
+#     "Validierung",
+#     "OR-Mapping",
+#     "PostgreSQL",
+#     "MySQL",
+#     "SQLite",
+#     "Excel",
+#     "Logging",
+#     "TOML",
+#     "Test",
+#     "Codeanalyse",
+#     "Formatierung",
+#     "Dokumentation",
+#     "Buildsystem",
+#     "uv",
+#     "uvx",
+# ]
+# # https://pypi.org/classifiers
+# classifiers = [
+#     "Development Status :: 5 - Production/Stable",
+#     "Environment :: Web Environment",
+#     "Framework :: FastAPI",
+#     "Framework :: Pytest",
+#     "Framework :: MkDocs",
+#     "Intended Audience :: Developers",
+#     "Intended Audience :: Information Technology",
+#     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+#     "Operating System :: OS Independent",
+#     "Programming Language :: Python",
+#     "Programming Language :: Python :: 3.13",
+#     "Topic :: Database",
+#     "Topic :: Internet :: WWW/HTTP",
+#     "Topic :: Software Development :: Testing",
+#     "Topic :: Software Development :: Testing :: Traffic Generation",
+# ]
+dependencies = [
+
+#     # https://github.com/agronholm/anyio fuer Starlette
+#     "anyio>=4.9.0",
+#     # https://foss.heptapod.net/pypy/cffi/-/issues
+#     # Foreign Function Interface for Python calling C code
+#     "cffi>=1.17.1",
+#     # https://cryptography.io fuer JWT mit oeffentlichem/privatem Schluessel, z.B. RSA
+#     "cryptography>=44.0.2",
+#     # https://github.com/JoshData/python-email-validator
+#     "email-validator>=2.2.0",
+    "fastapi[standard]>=0.115.12",
+#     # httpx fuer den asynchronen TestClient von FastAPI
+#     # https://github.com/encode/httpx
+#     "httpx[http2]>=0.28.1",
+    "hypercorn>=0.17.3",
+#     # Safely pass data to untrusted environments and back
+#     "itsdangerous>=2.2.0",
+    "loguru>=0.7.3",
+    "openpyxl>=3.1.5",
+#     # Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy
+#     "orjson>=3.10.16",
+#     # https://www.psycopg.org/psycopg3 https://github.com/psycopg/psycopg3
+#     "psycopg[binary,pool]>=3.2.6",
+#     "psycopg-pool>=3.2.6",
+#     "pydantic[email]>=2.11.0",
+    "pyfiglet>=1.0.2",
+    # "PyJWT>=2.10.1",
+    "PyMySQL>=1.1.1",
+    "python-dotenv>=1.1.0",
+#     # fuer OpenAPI
+#     "PyYAML>=6.0.2",
+    "SQLAlchemy>=2.0.40",
+#     # https://www.starlette.io
+#     # https://github.com/tiangolo/fastapi/blob/master/pyproject.toml#L44
+#     "starlette>=0.46.1",
+    "strawberry-graphql>=0.262.5",
+    "tabulate>=0.9.0",
+#     # Ultra fast JSON encoder and decoder for Python
+#     "ujson>=5.10.0",
+    "uvicorn>=0.34.0",
+    "python-jose[cryptography]>=3.3.0",
+    "httpx>=0.28.1",
+    "pydantic-settings",
+]
+
+[project.scripts]
+inventory = "inventory:main"
+
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project.urls]
+homepage = "https://www.gentlecorp-systems.com"
+documentation = "https://readthedocs.org"
+repository = "https://github.com"
+changelog = "https://github.comgentlecorp/inventory/blob/master/CHANGELOG.md"
+
+[project.optional-dependencies]
+[dependency-groups]
+build = [
+    "hatch>=1.14.0",
+    "hatchling>=1.27.0",
+]
+# dev = [
+#     # https://locust.io
+#     "locust>=2.33.2",
+#     # https://pytest.org
+#     "pytest>=8.3.5",
+#     # https://github.com/pytest-dev/pytest-html
+#     "pytest-html>=4.1.1",
+#     # https://requests.readthedocs.io
+#     # httpx statt requests: https://www.python-httpx.org, https://github.com/encode/httpx
+#     "requests>=2.32.3",
+# ]
+# doc = [
+#     # https://github.com/mkdocstrings/griffe
+#     "griffe>=1.7.0",
+#     # https://github.com/Python-Markdown/markdown
+#     "Markdown>=3.7",
+#     # https://mistune.lepture.com
+#     "mistune>=3.1.3",
+#     # https://github.com/christo-ph/mkdocs_build_plantuml
+#     "mkdocs-build-plantuml-plugin>=1.11.0",
+#     # https://squidfunk.github.io/mkdocs-material
+#     "mkdocs-material>=9.6.9",
+#     # https://github.com/facelessuser/mkdocs-material-extensions
+#     "mkdocs-material-extensions>=1.3.1",
+#     # https://www.mkdocs.org
+#     "mkdocs>=1.6.1",
+#     # https://mkdocstrings.github.io https://mkdocstrings.github.io/python
+#     "mkdocstrings[python]>=0.29.0",
+#     "mkdocstrings-python>=1.16.8",
+# ]
+lint = [
+#     # https://docs.astral.sh/ruff
+#     "ruff>=0.11.2",
+#     # safety-schemas: depends on pydantic<2.10.0
+#     #"safety>=3.3.1",
+#     "safety>=3.2.9",
+    "types-openpyxl>=3.1.5.20250306",
+#     "types-tabulate>=0.9.0.20241207",
+#     # https://github.com/jendrikseipp/vulture
+#     # "vulture>=2.7",
+]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/inventory"]
+[tool.hatch.build.targets.wheel]
+packages = ["src/inventory"]
+
+# # https://docs.pytest.org/en/stable/reference/customize.html
+# [tool.pytest.ini_options]
+# minversion = "8.3.5"
+# testpaths = ["tests"]
+# #pythonpath = ["src", "tests"]
+# # -m: nur Tests mit dem spezifizierten _Marker_ ausführen
+# # -r: zusätzliche Zusammenfassung anzeigen (A = All)
+# #addopts = "-r A --html report.html --cov"
+# #addopts = "-m get_request -r A --html report.html --cov"
+# addopts = "--html report.html"
+# markers = [
+#     "rest: REST-Schnittstelle",
+#     "get_request: GET-Requests",
+#     "post_request: POST-Requests",
+#     "put_request: PUT-Requests",
+#     "delete_request: DELETE-Requests",
+#     "login: Login mit der REST-Schnittstelle",
+#     "health: Health des Servers ueberpruefen",
+#     "graphql: GraphQL-Schnittstelle",
+#     "query: Queries bei GraphQL",
+#     "mutation: Mutations bei GraphQL",
+#     "simple: Einfache Tests mit True und False",
+# ]
+
+# [tool.ruff]
+# preview = true
+
+# [tool.ruff.lint]
+# # https://docs.astral.sh/ruff/rules
+# select = [
+#     "FAST",   # FastAPI
+#     "B",      # flake8-bugbear https://github.com/PyCQA/flake8-bugbear
+#     "ASYNC",  # flake8-async https://github.com/python-trio/flake8-async
+#     "S",      # flake8-bandit https://github.com/tylerwince/flake8-bandit Bandit>=1.7.1
+#     "A",      # flake8-builtins https://github.com/gforcada/flake8-builtins
+#     "COM",    # flake8-commas https://github.com/PyCQA/flake8-commas
+#     "C4",     # flake8-comprehensions https://github.com/adamchainz/flake8-comprehensions
+#     "ISC001", # flake8-implicit-str-concat https://github.com/flake8-implicit-str-concat/flake8-implicit-str-concat
+#     "PIE",    # flake8-pie https://github.com/sbdchd/flake8-pie
+#     "RET",    # flake8-return https://github.com/afonasev/flake8-return
+#     "SIM",    # flake8-simplify https://github.com/MartinThoma/flake8-simplify
+#     "I",      # isort https://github.com/PyCQA/isort
+#     "N",      # pep8-naming https://github.com/PyCQA/pep8-naming
+#     "PERF",   # Perflint https://github.com/tonybaloney/perflint
+#     "E",      # pycodestyle https://github.com/pycqa/pycodestyle
+#     "W",      # pycodestyle (warning)
+#     "D",      # pydoclint https://github.com/jsh9/pydoclint
+#     "F",      # Pyflakes https://github.com/PyCQA/pyflakes
+#     "PL",     # Pylint https://pypi.org/project/pylint
+#     "UP",     # pyupgrade https://github.com/asottile/pyupgrade
+#     "FURB",   # refurb https://github.com/dosisod/refurb
+#     "RUF",    # Ruff-specific rules https://docs.astral.sh/ruff/rules/#ruff-specific-rules-ruf
+# ]
+# ignore = [
+#     "D203",   # https://docs.astral.sh/ruff/rules/incorrect-blank-line-before-class
+#     "D213",   # https://docs.astral.sh/ruff/rules/multi-line-summary-second-line
+#     "RET503", # https://docs.astral.sh/ruff/rules/implicit-return
+#     "RUF012",
+#     "COM812", # https://docs.astral.sh/ruff/rules/missing-trailing-comma
+# ]
+
+# [tool.ruff.lint.isort]
+# case-sensitive = true
+
+# # https://github.com/microsoft/pyright/blob/main/docs/configuration.md#sample-pyprojecttoml-file
+# [tool.pyright]
+# pythonVersion = "3.13"
+# include = ["src"]
+# exclude = ["**/__pycache__"]
+
+[tool.uv]
+default-groups = "all"
