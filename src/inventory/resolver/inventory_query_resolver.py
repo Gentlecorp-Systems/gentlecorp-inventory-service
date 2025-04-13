@@ -9,6 +9,17 @@ from inventory.model.entity.inventory import InventoryType
 from inventory.repository.pageable import Pageable
 from inventory.security.keycloak_service import KeycloakService
 from inventory.service.inventory_read_service import find, find_by_id
+from inventory.service.product_service import get_product_by_id
+
+
+async def resolve_product(info: Info, product_id: str):
+    token = (
+        info.context["request"]
+        .headers.get("Authorization", "")
+        .removeprefix("Bearer ")
+        .strip()
+    )
+    return await get_product_by_id(product_id, token)
 
 
 # Einzelnes Inventory per ID abfragen
@@ -20,7 +31,7 @@ async def resolve_inventory(info: Info, inventory_id: str) -> InventoryType | No
     keycloak.assert_roles(["Admin", "helper"])
 
     try:
-        inventory: Final = find_by_id(inventory_id=inventory_id)
+        inventory: Final = await find_by_id(inventory_id=inventory_id, token=keycloak.token)
     except NotFoundError:
         return None
 

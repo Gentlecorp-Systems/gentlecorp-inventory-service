@@ -9,7 +9,6 @@ from loguru import logger
 
 __all__ = ["inventory_config", "resources_path"]
 
-
 resources_path: Final[str] = "inventory.config.resources"
 
 _resources_traversable: Final[Traversable] = files(resources_path)

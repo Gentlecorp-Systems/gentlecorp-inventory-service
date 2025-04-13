@@ -15,11 +15,12 @@ from inventory.repository import Pageable, Session, Slice
 from inventory.repository import find as find_repo
 from inventory.repository import find_by_id as find_by_id_repo
 from inventory.error.exceptions import NotAllowedError, NotFoundError
+from inventory.service.product_service import get_product_by_id
 
 __all__ = ["find", "find_by_id", "find_nachnamen"]
 
 
-def find_by_id(inventory_id: str) -> Inventory:
+async def find_by_id(inventory_id: str, token: str) -> Inventory:
     """Suche mit der Patient-ID.
 
     :param inventory_id: ID für die Suche
@@ -40,7 +41,16 @@ def find_by_id(inventory_id: str) -> Inventory:
 
         logger.debug('inventory={}', inventory)
         inventory_dto: Final = InventoryType(inventory)
-        # inventory_dto: Final = map_inventory_to_dto(inventory)
+
+        bearer_tokem: Final = "bearer " + token
+        try:
+            # Produktname vom Product Service holen
+            product_data = await get_product_by_id(inventory.product_id, token)
+            inventory_dto.product_name = product_data["name"]
+        except Exception as e:
+            logger.warning("Product Service nicht erreichbar: {}", e)
+            inventory_dto.product_name = "Unbekannt"
+
         session.commit()
 
     logger.debug("{}", inventory_dto)
